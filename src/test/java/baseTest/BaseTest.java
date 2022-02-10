@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.BookStoreAppLoginPage;
+import pages.BooksPage;
 
 import pages.HomePageForBookStore;
 import pages.LoginToBookAppPage;
@@ -20,9 +20,16 @@ public class BaseTest {
     Logger logger = Logger.getLogger(getClass());
 
     protected MainPage mainPage;
-    protected BookStoreAppLoginPage bookStoreAppLoginPage;
+    protected BooksPage booksPage;
     protected LoginToBookAppPage loginToBookAppPage;
     protected HomePageForBookStore homePageForBookStore;
+
+    protected void validLogin(){
+        mainPage.openBookAppLoginPage();
+        loginToBookAppPage.clickOnLogInButton();
+        booksPage.clickOnLoginButtonToLogInUser();
+        loginToBookAppPage.logInToBookAppWithValidCred();
+    }
 
 
     @Before
@@ -34,7 +41,7 @@ public class BaseTest {
         logger.info("browser was opened");
 
         mainPage = new MainPage(webDriver);
-        bookStoreAppLoginPage = new BookStoreAppLoginPage(webDriver);
+        booksPage = new BooksPage(webDriver);
         loginToBookAppPage =new LoginToBookAppPage(webDriver);
         homePageForBookStore = new HomePageForBookStore(webDriver);
 

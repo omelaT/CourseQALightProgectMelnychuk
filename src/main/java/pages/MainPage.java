@@ -1,13 +1,17 @@
 package pages;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 public class MainPage  extends ParentPage{
+
+    @FindBy(xpath =".//*[@class='category-cards']/div[last()]" )
+    private WebElement bookStoreMenu;
+
     public MainPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -19,26 +23,22 @@ public class MainPage  extends ParentPage{
         }catch(Exception e){
             logger.error("Can't open MainPage " + e);
             Assert.fail("Can't open MainPage " + e);
-
         }
     }
 
-    public void clickOnBookStoreAppMenu() {
-       // WebElement driver;
-//        WebElement element = webDriver.findElement(By.xpath(".//*[@class='category-cards']/div[last()]"));
-//        Actions actions = new Actions(webDriver);
-//        actions.moveToElement(element);
-//        actions.perform();
+    public BooksPage clickOnBookStoreAppMenu() {
+
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         js.executeScript("javascript:window.scrollBy(250,350)");
-        try{
-            webDriver.findElement(By.xpath(".//*[@class='category-cards']/div[last()]")).isDisplayed();
-            webDriver.findElement(By.xpath(".//*[@class='category-cards']/div[last()]")).click();
-            logger.info("BookStoreMenu was clicked");
-        }catch(Exception e){
-            printErrorAndStopTest(e);
-        }
+        clickOnElement(bookStoreMenu);
+        logger.info("BookStoreMenu was clicked, Book Store app where user can start Log in opened");
+        return new BooksPage(webDriver);
+    }
 
+    public BooksPage openBookAppLoginPage(){
+        openMainPage();
+        clickOnBookStoreAppMenu();
+        return new BooksPage(webDriver);
     }
 
 }

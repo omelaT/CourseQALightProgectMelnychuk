@@ -1,44 +1,60 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class LoginToBookAppPage  extends ParentPage{
+
+    @FindBy(xpath = ".//*[@placeholder='UserName']")
+    private WebElement inputUserNameToLoginField;
+
+    @FindBy(xpath = ".//*[@placeholder='Password']")
+    private WebElement inputPasswordToLoginField;
+
+    @FindBy(xpath = ".//*[@id='login']")
+    private WebElement loginButton;
+
+    @FindBy(xpath = ".//*[@id='name']")
+    private WebElement warningTextInvalidLogin;
+
+
     public LoginToBookAppPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public void enterUserName(String login) {
-        try{
-            webDriver.findElement(By.xpath(".//*[@placeholder='UserName']")).clear();
-            webDriver.findElement(By.xpath(".//*[@placeholder='UserName']")).sendKeys(login);
-            logger.info(login + "Username/login was inputed");
-
-        }catch(Exception e){
-            printErrorAndStopTest(e);
-        }
+    public LoginToBookAppPage enterUserName(String login) {
+         enterTextInToElement(inputUserNameToLoginField,login);
+         return this;
     }
 
-    public void enterUserPassword(String password) {
-        try{
-            webDriver.findElement(By.xpath(".//*[@placeholder='Password']")).clear();
-            webDriver.findElement(By.xpath(".//*[@placeholder='Password']")).sendKeys(password);
-            logger.info(password + "password was inputed");
-
-        }catch(Exception e){
-            printErrorAndStopTest(e);
-        }
+    public LoginToBookAppPage enterUserPassword(String password) {
+     enterTextInToElement(inputPasswordToLoginField,password);
+     return this;
     }
 
-    public void clickOnLogInButton(){
-        try{
-            webDriver.findElement(By.xpath(".//*[@id='login']")).click();
-            logger.info("Log In button was clicked");
-        }catch(Exception e){
-            printErrorAndStopTest(e);
-        }
+    public HomePageForBookStore clickOnLogInButton(){
+        clickOnElement(loginButton);
+        return new HomePageForBookStore(webDriver);
     }
+
+    public HomePageForBookStore logInToBookAppWithValidCred(){
+        enterUserName(TestData.VALID_LOGIN);
+        enterUserPassword(TestData.VALID_PASSWORD);
+        clickOnLogInButton();
+        return new HomePageForBookStore(webDriver);
+    }
+
+    public LoginToBookAppPage checkWarningTextaboutInvalidLogIn(String text){
+        Assert.assertEquals("Text in warning ",text, warningTextInvalidLogin.getText() );
+        return  this;
+    }
+
+
+
+
 
 
 
