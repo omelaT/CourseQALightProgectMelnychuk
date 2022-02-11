@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.BooksPage;
 
-import pages.HomePageForBookStore;
+import pages.ProfilePage;
 import pages.LoginToBookAppPage;
 import pages.MainPage;
 
@@ -22,7 +22,7 @@ public class BaseTest {
     protected MainPage mainPage;
     protected BooksPage booksPage;
     protected LoginToBookAppPage loginToBookAppPage;
-    protected HomePageForBookStore homePageForBookStore;
+    protected ProfilePage profilePage;
 
     protected void validLogin(){
         mainPage.openBookAppLoginPage();
@@ -43,7 +43,7 @@ public class BaseTest {
         mainPage = new MainPage(webDriver);
         booksPage = new BooksPage(webDriver);
         loginToBookAppPage =new LoginToBookAppPage(webDriver);
-        homePageForBookStore = new HomePageForBookStore(webDriver);
+        profilePage = new ProfilePage(webDriver);
 
 
     }

@@ -35,16 +35,16 @@ public class LoginToBookAppPage  extends ParentPage{
      return this;
     }
 
-    public HomePageForBookStore clickOnLogInButton(){
+    public ProfilePage clickOnLogInButton(){
         clickOnElement(loginButton);
-        return new HomePageForBookStore(webDriver);
+        return new ProfilePage(webDriver);
     }
 
-    public HomePageForBookStore logInToBookAppWithValidCred(){
+    public ProfilePage logInToBookAppWithValidCred(){
         enterUserName(TestData.VALID_LOGIN);
         enterUserPassword(TestData.VALID_PASSWORD);
         clickOnLogInButton();
-        return new HomePageForBookStore(webDriver);
+        return new ProfilePage(webDriver);
     }
 
     public LoginToBookAppPage checkWarningTextaboutInvalidLogIn(String text){

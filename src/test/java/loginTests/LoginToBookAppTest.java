@@ -16,7 +16,7 @@ public class LoginToBookAppTest extends BaseTest {
         loginToBookAppPage.clickOnLogInButton();
 
         Assert.assertTrue("Button Log out is NOT Displayed ",
-                homePageForBookStore.isButtonLogOutDisplayed());
+                profilePage.isButtonLogOutDisplayed());
     }
 
 
@@ -28,13 +28,13 @@ public class LoginToBookAppTest extends BaseTest {
         loginToBookAppPage.logInToBookAppWithValidCred();
 
         Assert.assertTrue("Button Log out is NOT Displayed ",
-                homePageForBookStore.isButtonLogOutDisplayed());
+                profilePage.isButtonLogOutDisplayed());
     }
     @Test
     public void validLogInTest3(){
         validLogin();
         Assert.assertTrue("Button Log out is NOT Displayed ",
-                homePageForBookStore.isButtonLogOutDisplayed());
+                profilePage.isButtonLogOutDisplayed());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class LoginToBookAppTest extends BaseTest {
         loginToBookAppPage.checkWarningTextaboutInvalidLogIn("Invalid username or password!");
 
         Assert.assertFalse("Button Log out is  Displayed ",
-                homePageForBookStore.isButtonLogOutDisplayed());
+                profilePage.isButtonLogOutDisplayed());
 
 
 
