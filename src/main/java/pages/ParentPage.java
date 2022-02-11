@@ -1,22 +1,35 @@
 package pages;
 
+import libs.ConfigProperties;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.hamcrest.CoreMatchers.containsString;
 
 
-public class ParentPage {
+abstract public class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
+
+
+
+ public static ConfigProperties configProperties =
+         ConfigFactory.create(ConfigProperties.class);
+
+    protected String baseUrl=configProperties.base_url();
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         //инициализирует єлементы страничек, описанне через аннотацию FindBy
         PageFactory.initElements(webDriver, this);
     }
+
 
     protected void enterTextInToElement(WebElement webElement, String text) {
         try {
@@ -52,4 +65,19 @@ public class ParentPage {
     }
 
 
+    abstract String getRelativeUrl();
+    protected void checkUrlWithPattern(){
+        Assert.assertThat("Invalid page",webDriver.getCurrentUrl()
+                ,containsString(baseUrl+getRelativeUrl()));
+    }
+    protected void checkUrl(){
+        Assert.assertEquals("Invalid page"
+                ,baseUrl+getRelativeUrl()
+                ,webDriver.getCurrentUrl());
+    }
+    protected void scroll(){
+
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("javascript:window.scrollBy(250,350)");
+    }
 }

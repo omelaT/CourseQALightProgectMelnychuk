@@ -5,12 +5,14 @@ import libs.TestData;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static java.lang.Thread.sleep;
+
 public class LoginToBookAppTest extends BaseTest {
     @Test
     public void validLoginTest() {
         mainPage.openMainPage();
         mainPage.clickOnBookStoreAppMenu();
-        booksPage.clickOnLoginButtonToLogInUser();
+        booksPageBeforeLogin.clickOnLoginButtonToLogInUser();
         loginToBookAppPage.enterUserName(TestData.VALID_LOGIN);
         loginToBookAppPage.enterUserPassword(TestData.VALID_PASSWORD);
         loginToBookAppPage.clickOnLogInButton();
@@ -24,11 +26,12 @@ public class LoginToBookAppTest extends BaseTest {
     public void validLoginTest2() {
         mainPage.openBookAppLoginPage();
         loginToBookAppPage.clickOnLogInButton();
-        booksPage.clickOnLoginButtonToLogInUser();
+        booksPageBeforeLogin.clickOnLoginButtonToLogInUser();
         loginToBookAppPage.logInToBookAppWithValidCred();
 
         Assert.assertTrue("Button Log out is NOT Displayed ",
                 profilePage.isButtonLogOutDisplayed());
+
     }
     @Test
     public void validLogInTest3(){
@@ -41,7 +44,7 @@ public class LoginToBookAppTest extends BaseTest {
     public void invalidUsernameWhileLogIn(){
         mainPage.openBookAppLoginPage();
         loginToBookAppPage.clickOnLogInButton();
-        booksPage.clickOnLoginButtonToLogInUser();
+        booksPageBeforeLogin.clickOnLoginButtonToLogInUser();
         loginToBookAppPage.enterUserName(TestData.INVALID_LOGIN)
                 .enterUserPassword(TestData.VALID_PASSWORD)
                 .clickOnLogInButton();

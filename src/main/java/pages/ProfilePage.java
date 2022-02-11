@@ -15,14 +15,22 @@ public class ProfilePage extends ParentPage{
     @FindBy(xpath=".//*[@class='text-right button di']")
     private WebElement deleteAllBooksButton;
 
-    @FindBy(xpath="")
+    @FindBy(xpath=".//*[@id='delete-record-undefined']")
     private WebElement deleteOneBookFromTheTableButton;
+
+    @FindBy(xpath =".//*[@id='see-book-Git Pocket Guide']")
+    private WebElement bookName;
 
 
 
 
     public ProfilePage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return null;
     }
 
     public boolean  isButtonLogOutDisplayed() {
@@ -38,4 +46,18 @@ public class ProfilePage extends ParentPage{
         return this;
     }
 
+
+    public StorePage clickOnGoToBookStoreButton() {
+        clickOnElement(goToStoreButton);
+        return new StorePage(webDriver);
+    }
+
+    public ProfilePage checkBookIsAdded(){
+        isElementDisplayed(bookName);
+         return this;
+    }
+    public ProfilePage deleteBookFromTheProfile(){
+        clickOnElement(deleteOneBookFromTheTableButton);
+        return this;
+    }
 }

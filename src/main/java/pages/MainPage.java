@@ -15,6 +15,12 @@ public class MainPage  extends ParentPage{
     public MainPage(WebDriver webDriver) {
         super(webDriver);
     }
+
+    @Override
+    String getRelativeUrl() {
+        return null;
+    }
+
     public void openMainPage(){
         try{
             webDriver.get("https://demoqa.com/");
@@ -26,19 +32,18 @@ public class MainPage  extends ParentPage{
         }
     }
 
-    public BooksPage clickOnBookStoreAppMenu() {
+    public BooksPageBeforeLogin clickOnBookStoreAppMenu() {
 
-        JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        js.executeScript("javascript:window.scrollBy(250,350)");
+        scroll();
         clickOnElement(bookStoreMenu);
         logger.info("BookStoreMenu was clicked, Book Store app where user can start Log in opened");
-        return new BooksPage(webDriver);
+        return new BooksPageBeforeLogin(webDriver);
     }
 
-    public BooksPage openBookAppLoginPage(){
+    public BooksPageBeforeLogin openBookAppLoginPage(){
         openMainPage();
         clickOnBookStoreAppMenu();
-        return new BooksPage(webDriver);
+        return new BooksPageBeforeLogin(webDriver);
     }
 
 }

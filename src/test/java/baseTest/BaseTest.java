@@ -7,11 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.BooksPage;
-
-import pages.ProfilePage;
-import pages.LoginToBookAppPage;
-import pages.MainPage;
+import pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,17 +16,11 @@ public class BaseTest {
     Logger logger = Logger.getLogger(getClass());
 
     protected MainPage mainPage;
-    protected BooksPage booksPage;
+    protected BooksPageBeforeLogin booksPageBeforeLogin;
     protected LoginToBookAppPage loginToBookAppPage;
     protected ProfilePage profilePage;
-
-    protected void validLogin(){
-        mainPage.openBookAppLoginPage();
-        loginToBookAppPage.clickOnLogInButton();
-        booksPage.clickOnLoginButtonToLogInUser();
-        loginToBookAppPage.logInToBookAppWithValidCred();
-    }
-
+    protected StorePage storePage;
+    protected BookPage bookPage;
 
     @Before
     public void setUp(){
@@ -41,12 +31,23 @@ public class BaseTest {
         logger.info("browser was opened");
 
         mainPage = new MainPage(webDriver);
-        booksPage = new BooksPage(webDriver);
+        booksPageBeforeLogin = new BooksPageBeforeLogin(webDriver);
         loginToBookAppPage =new LoginToBookAppPage(webDriver);
         profilePage = new ProfilePage(webDriver);
-
+        storePage = new StorePage(webDriver);
+        bookPage = new BookPage(webDriver);
 
     }
+
+    protected void validLogin(){
+        mainPage.openBookAppLoginPage();
+        loginToBookAppPage.clickOnLogInButton();
+        booksPageBeforeLogin.clickOnLoginButtonToLogInUser();
+        loginToBookAppPage.logInToBookAppWithValidCred();
+    }
+
+
+
     @After
     public void turnDown(){
         webDriver.quit();

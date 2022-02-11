@@ -25,6 +25,11 @@ public class LoginToBookAppPage  extends ParentPage{
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return null;
+    }
+
     public LoginToBookAppPage enterUserName(String login) {
          enterTextInToElement(inputUserNameToLoginField,login);
          return this;
@@ -35,16 +40,17 @@ public class LoginToBookAppPage  extends ParentPage{
      return this;
     }
 
-    public ProfilePage clickOnLogInButton(){
+    public StorePage clickOnLogInButton(){
         clickOnElement(loginButton);
-        return new ProfilePage(webDriver);
+        return new StorePage(webDriver);
     }
 
-    public ProfilePage logInToBookAppWithValidCred(){
+    public StorePage logInToBookAppWithValidCred(){
         enterUserName(TestData.VALID_LOGIN);
         enterUserPassword(TestData.VALID_PASSWORD);
         clickOnLogInButton();
-        return new ProfilePage(webDriver);
+        logger.info("login button clicked");
+        return new StorePage(webDriver);
     }
 
     public LoginToBookAppPage checkWarningTextaboutInvalidLogIn(String text){
