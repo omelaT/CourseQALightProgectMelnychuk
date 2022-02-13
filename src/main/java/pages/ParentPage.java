@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -67,17 +67,30 @@ abstract public class ParentPage {
 
     abstract String getRelativeUrl();
     protected void checkUrlWithPattern(){
+        System.out.println(baseUrl);
         Assert.assertThat("Invalid page",webDriver.getCurrentUrl()
-                ,containsString(baseUrl+getRelativeUrl()));
+                ,containsString("https://demoqa.com/books"));
+
     }
-    protected void checkUrl(){
+
+    protected void checkUrl() {
         Assert.assertEquals("Invalid page"
-                ,baseUrl+getRelativeUrl()
-                ,webDriver.getCurrentUrl());
+                , baseUrl + getRelativeUrl()
+                , webDriver.getCurrentUrl());
     }
-    protected void scroll(){
+
+    protected void scroll() {
 
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         js.executeScript("javascript:window.scrollBy(250,350)");
     }
+
+    public void safeAlertAccept() {
+        try {
+            webDriver.switchTo().alert().accept();
+        } catch (NoAlertPresentException e) {
+            // ничего не делаем, алерта итак нет
+        }
+    }
+
 }

@@ -21,6 +21,12 @@ public class ProfilePage extends ParentPage{
     @FindBy(xpath =".//*[@id='see-book-Git Pocket Guide']")
     private WebElement bookName;
 
+    @FindBy(xpath = ".//*[@id='closeSmallModal-ok']")
+    private WebElement okButton;
+
+    @FindBy(xpath = ".//*[@class='modal-content']")
+    private WebElement frame;
+
 
 
 
@@ -41,9 +47,15 @@ public class ProfilePage extends ParentPage{
         }
     }
 
+
     public ProfilePage checkIsButtonLogOutDisplayed(){
         Assert.assertTrue("Button log out is not displayed ", isButtonLogOutDisplayed() );
         return this;
+    }
+    public LoginToBookAppPage clickOnButtonLogOut(){
+        clickOnElement(logOutButton);
+        return  new LoginToBookAppPage(webDriver);
+
     }
 
 
@@ -52,12 +64,44 @@ public class ProfilePage extends ParentPage{
         return new StorePage(webDriver);
     }
 
-    public ProfilePage checkBookIsAdded(){
+    public ProfilePage checkBookIsAdded() {
         isElementDisplayed(bookName);
-         return this;
-    }
-    public ProfilePage deleteBookFromTheProfile(){
-        clickOnElement(deleteOneBookFromTheTableButton);
         return this;
     }
+
+    public boolean isBookDisplayed() {
+        try {
+            return isElementDisplayed(bookName);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public ProfilePage checkIsBookDeleted() {
+        Assert.assertTrue("Book  displayed ", isBookDisplayed());
+        return this;
+    }
+
+    public ProfilePage deleteBookFromTheProfile() {
+        clickOnElement(deleteOneBookFromTheTableButton);
+        clickOnOkButtonInFrame();
+        return this;
+    }
+    public ProfilePage clickOnDeleteAllBooksButton(){
+
+        clickOnElement(deleteAllBooksButton);
+        clickOnOkButtonInFrame();
+
+
+        return this;
+    }
+
+    public ProfilePage clickOnOkButtonInFrame(){
+        //webDriver.switchTo().frame(frame);
+        webDriver.switchTo().activeElement();
+        clickOnElement(okButton);
+        return this;
+    }
+
+
 }

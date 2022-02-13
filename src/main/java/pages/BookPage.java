@@ -17,34 +17,46 @@ public class BookPage extends ParentPage {
         return null;
     }
 
-    @FindBy(xpath= ".//*[@class='text-right fullButton']")
+    @FindBy(xpath = ".//*[@class='text-right fullButton']")
     private WebElement addToTourCollectionButton;
 
-    @FindBy(xpath=".//*[@class='text-left fullButton']")
+    @FindBy(xpath = ".//*[@class='text-left fullButton']")
     private WebElement backToBookStoreButton;
 
-    @FindBy (xpath=".//*[contains(text(),'Git Pocket Guide')]")
+    @FindBy(xpath = ".//*[contains(text(),'Git Pocket Guide')]")
     private WebElement gitBookName;
+    @FindBy(xpath = ".//*[contains(text(),'Profile')]")
+    protected WebElement profileMenu;
 
     public BookPage checkTitleOfTheBookDisplayed(String bookTitle) {
         Assert.assertEquals("Git Pocket Guide", bookTitle, gitBookName.getText());
         return this;
     }
-    public BookPage checkbackToBookStoreButtonDisplayed(){
+
+    public BookPage checkbackToBookStoreButtonDisplayed() {
         isElementDisplayed(backToBookStoreButton);
         return this;
     }
-    public StorePage clickOnBackToBookStoreButton(){
+
+    public StorePage clickOnBackToBookStoreButton() {
         clickOnElement(backToBookStoreButton);
-        safeAlertAccept();
+
         return new StorePage(webDriver);
     }
-    public BookPage clickOnAddToCollectionButton(){
+
+    public BookPage clickOnAddToCollectionButton() {
         clickOnElement(addToTourCollectionButton);
+
         return this;
     }
 
-//    Alert alert = (new WebDriverWait(webDriver, 5))
+    public ProfilePage clickOnProfileMenu() {
+        scroll();
+        clickOnElement(profileMenu);
+        return new ProfilePage(webDriver);
+    }
+
+    //    Alert alert = (new WebDriverWait(webDriver, 5))
 //            .until(ExpectedConditions.alertIsPresent());
     public void safeAlertAccept() {
         try {

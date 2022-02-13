@@ -5,7 +5,6 @@ import libs.TestData;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static java.lang.Thread.sleep;
 
 public class LoginToBookAppTest extends BaseTest {
     @Test
@@ -53,6 +52,14 @@ public class LoginToBookAppTest extends BaseTest {
         Assert.assertFalse("Button Log out is  Displayed ",
                 profilePage.isButtonLogOutDisplayed());
 
+    }
+    @Test
+    public  void logoutTest(){
+        validLogin();
+        storePage.clickOnProfileMenu()
+                .checkIsButtonLogOutDisplayed()
+                .clickOnButtonLogOut()
+                .checkNameOfHeader("Login");
 
 
 

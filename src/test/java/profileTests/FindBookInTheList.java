@@ -35,7 +35,8 @@ public class FindBookInTheList extends BaseTest {
                 .checkTheNameOfTheBook("Git Pocket Guide")
         .clickOnGitBookPage();
         bookPage.checkTitleOfTheBookDisplayed("Git Pocket Guide")
-                .clickOnBackToBookStoreButton();
-               // .checkIsRedirectToStorePage();
+                .clickOnBackToBookStoreButton()
+                .checkIsRedirectToStorePage();
     }
+
 }

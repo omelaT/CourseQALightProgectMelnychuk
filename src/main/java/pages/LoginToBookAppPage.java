@@ -20,6 +20,9 @@ public class LoginToBookAppPage  extends ParentPage{
     @FindBy(xpath = ".//*[@id='name']")
     private WebElement warningTextInvalidLogin;
 
+    @FindBy(xpath = ".//*[@class='main-header']")
+    protected WebElement storeHeader;
+
 
     public LoginToBookAppPage(WebDriver webDriver) {
         super(webDriver);
@@ -57,11 +60,10 @@ public class LoginToBookAppPage  extends ParentPage{
         Assert.assertEquals("Text in warning ",text, warningTextInvalidLogin.getText() );
         return  this;
     }
-
-
-
-
-
+    public LoginToBookAppPage checkNameOfHeader(String text){
+        Assert.assertEquals("menuheader text ",text, storeHeader.getText());
+        return this;
+    }
 
 
 }
